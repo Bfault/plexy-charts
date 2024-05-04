@@ -1,0 +1,115 @@
+deployment:
+  labels: {}
+  annotations: {}
+  replicaCount: 1
+  strategyType: Recreate
+  
+  dnsPolicy: None
+  dnsConfig:
+    nameservers:
+      - 8.8.8.8
+      - 8.8.4.4
+  
+  securityContext:
+  capabilities:
+    add:
+      - NET_ADMIN
+
+  podSecurityContext: {}
+  resources: {}
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
+
+  livenessProbe:
+    initialDelaySeconds: 45
+    periodSeconds: 10
+    exec:
+      command:
+        - sh
+        - -c
+        - /etc/scripts/healtcheck.sh
+  readinessProbe:
+    initialDelaySeconds: 15
+    periodSeconds: 10
+    exec:
+      command:
+        - sh
+        - -c
+        - /etc/scripts/healtcheck.sh
+
+image:
+  repository: haugene/transmission-openvpn
+  tag: latest
+  pullPolicy: IfNotPresent
+
+env:
+  - name: OPENVPN_PROVIDER
+    value: CUSTOM
+  - name: OPENVPN_CONFIG
+    value: Netherlands
+  - name: OPENVPN_USERNAME
+    value: foo
+  - name: OPENVPN_PASSWORD
+    value: foo
+  - name: TRANSMISSION_RPC_USERNAME
+    value: foo
+  - name: TRANSMISSION_RPC_PASSWORD
+    value: foo
+  - name: TRANSMISSION_PEER_PORT
+    value: "47444"
+  - name: TRANSMISSION_RPC_AUTHENTICATION_REQUIRED
+    value: "true"
+  - name: TRANSMISSION_DOWNLOAD_DIR
+    value: /download/transmission
+  - name: PUID
+    value: "1000"
+  - name: PGID
+    value: "1000"
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: false
+  # ingressClassName: nginx
+  annotations:
+    kubernetes.io/tls-acme: "true"
+  labels: {}
+  annotations: {}
+  path: /
+  pathType: Prefix
+  hosts:
+    - transmission.192.168.0.1.nip.io
+  tls:
+    - secretName: transmission.192.168.0.1.nip.io
+      hosts:
+        - transmission.192.168.0.1.nip.io
+
+volumes:
+  - name: myvolume
+    persistentVolumeClaim:
+      claimName: myvolume
+  - name: config
+    secret:
+      # A secret that contains the openvpn configuration files must be created
+      secretName: openvpn-common-config
+  - name: dev-tun
+    hostPath:
+      path: /dev/net/tun
+
+volumeMounts:
+  - name: myvolume
+    mountPath: /data
+    subPath: configs/transmission-data
+  - name: myvolume
+    mountPath: /downloads/transmission
+    subPath: downloads/transmission
+  - name: config
+    mountPath: /etc/openvpn/custom/Default.ovpn
+    subPath: openvpn.conf
+  - name: dev-tun
+    mountPath: /dev/net/tun
+
+extraLabels: {}
