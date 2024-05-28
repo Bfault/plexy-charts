@@ -77,7 +77,6 @@ ingress:
   annotations:
     kubernetes.io/tls-acme: "true"
   labels: {}
-  annotations: {}
   path: /
   pathType: Prefix
   hosts:
