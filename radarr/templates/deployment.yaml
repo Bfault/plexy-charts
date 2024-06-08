@@ -1,0 +1,66 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "radarr.fullname" . }}
+  labels:
+    {{- include "radarr.labels" . | nindent 4 }}
+    {{- with .Values.deployment.labels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+  {{- with .Values.deployment.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  replicas: {{ .Values.deployment.replicaCount }}
+  strategy:
+    type: {{ .Values.deployment.strategyType }}
+  selector:
+    matchLabels:
+      app: {{ template "radarr.name" . }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "radarr.name" . }}
+        release: {{ .Release.Name }}
+    spec:
+      volumes:
+{{ toYaml .Values.volumes | indent 6 }}
+      dnsPolicy: {{ .Values.deployment.dnsPolicy }}
+      dnsConfig:
+{{ toYaml .Values.deployment.dnsConfig | indent 8 }}
+      securityContext:
+{{ toYaml .Values.deployment.podSecurityContext | indent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+{{ toYaml .Values.env | indent 12 }}
+          ports:
+            - name: http
+              containerPort: 7878
+              protocol: TCP
+          livenessProbe:
+{{ toYaml .Values.deployment.livenessProbe | indent 12 }}
+          readinessProbe:
+{{ toYaml .Values.deployment.readinessProbe | indent 12 }}
+          securityContext:
+{{ toYaml .Values.deployment.securityContext | indent 12 }}
+          volumeMounts:
+{{ toYaml .Values.volumeMounts | indent 12 }}
+          resources:
+{{ toYaml .Values.deployment.resources | indent 12 }}
+  {{- with .Values.deployment.nodeSelector }}
+      nodeSelector:
+{{ toYaml . | indent 8 }}
+  {{- end }}
+  {{- with .Values.deployment.affinity }}
+      affinity:
+{{ toYaml . | indent 8 }}
+  {{- end }}
+  {{- with .Values.deployment.tolerations }}
+      tolerations:
+{{ toYaml . | indent 8 }}
+  {{- end }}

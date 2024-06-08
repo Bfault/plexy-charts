@@ -16,7 +16,13 @@ deployment:
       - NET_ADMIN
 
   podSecurityContext: {}
-  resources: {}
+  resources:
+    requests:
+      memory: 128Mi
+      cpu: 0.1
+    limits:
+      memory: 256Mi
+      cpu: 0.5
   nodeSelector: {}
   tolerations: []
   affinity: {}
@@ -39,29 +45,11 @@ deployment:
         - /etc/scripts/healtcheck.sh
 
 image:
-  repository: haugene/transmission-openvpn
+  repository: linuxserver/radarr
   tag: latest
   pullPolicy: IfNotPresent
 
 env:
-  - name: OPENVPN_PROVIDER
-    value: CUSTOM
-  - name: OPENVPN_CONFIG
-    value: Netherlands
-  - name: OPENVPN_USERNAME
-    value: foo
-  - name: OPENVPN_PASSWORD
-    value: foo
-  - name: TRANSMISSION_RPC_USERNAME
-    value: foo
-  - name: TRANSMISSION_RPC_PASSWORD
-    value: foo
-  - name: TRANSMISSION_PEER_PORT
-    value: "47444"
-  - name: TRANSMISSION_RPC_AUTHENTICATION_REQUIRED
-    value: "true"
-  - name: TRANSMISSION_DOWNLOAD_DIR
-    value: /download/transmission
   - name: PUID
     value: "1000"
   - name: PGID
@@ -80,35 +68,26 @@ ingress:
   path: /
   pathType: Prefix
   hosts:
-    - transmission.192.168.0.1.nip.io
+    - radarr.192.168.0.1.nip.io
   tls:
-    - secretName: transmission.192.168.0.1.nip.io
+    - secretName: radarr.192.168.0.1.nip.io
       hosts:
-        - transmission.192.168.0.1.nip.io
+        - radarr.192.168.0.1.nip.io
 
 volumes:
   - name: myvolume
     persistentVolumeClaim:
       claimName: myvolume
-  - name: config
-    secret:
-      # A secret that contains the openvpn configuration files must be created
-      secretName: openvpn-common-config
-  - name: dev-tun
-    hostPath:
-      path: /dev/net/tun
 
 volumeMounts:
   - name: myvolume
-    mountPath: /data
-    subPath: configs/transmission-data
+    mountPath: /config
+    subPath: configs/radarr
   - name: myvolume
     mountPath: /downloads/transmission
     subPath: downloads/transmission
-  - name: config
-    mountPath: /etc/openvpn/custom/Default.ovpn
-    subPath: openvpn.conf
-  - name: dev-tun
-    mountPath: /dev/net/tun
+  - name: myvolume
+    mountPath: /movies
+    subPath: media/movies
 
 extraLabels: {}
