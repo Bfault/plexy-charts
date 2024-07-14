@@ -1,0 +1,90 @@
+deployment:
+  labels: {}
+  annotations: {}
+  replicaCount: 1
+  strategyType: Recreate
+
+  dnsPolicy: None
+  dnsConfig:
+    nameservers:
+      - 8.8.8.8
+      - 8.8.4.4
+
+  securityContext:
+  capabilities:
+    add:
+      - NET_ADMIN
+
+  podSecurityContext: {}
+  resources:
+    requests:
+      memory: 128Mi
+      cpu: 0.1
+    limits:
+      memory: 256Mi
+      cpu: 0.5
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
+
+  livenessProbe:
+    initialDelaySeconds: 45
+    periodSeconds: 10
+    exec:
+      command:
+        - sh
+        - -c
+        - /etc/scripts/healtcheck.sh
+  readinessProbe:
+    initialDelaySeconds: 15
+    periodSeconds: 10
+    exec:
+      command:
+        - sh
+        - -c
+        - /etc/scripts/healtcheck.sh
+
+image:
+  repository: linuxserver/jackett
+  tag: latest
+  pullPolicy: IfNotPresent
+
+env:
+  - name: PUID
+    value: "1000"
+  - name: PGID
+    value: "1000"
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: false
+  ingressClassName: nginx
+  annotations:
+    kubernetes.io/tls-acme: "true"
+  labels: {}
+  path: /
+  pathType: Prefix
+  hosts:
+    - jackett.192.168.0.1.nip.io
+  tls:
+    - secretName: jackett.192.168.0.1.nip.io
+      hosts:
+        - jackett.192.168.0.1.nip.io
+
+volumes:
+  - name: myvolume
+    persistentVolumeClaim:
+      claimName: myvolume
+
+volumeMounts:
+  - name: myvolume
+    mountPath: /config
+    subPath: configs/jackett
+  - name: myvolume
+    mountPath: /downloads
+    subPath: downloads/jackett
+
+extraLabels: {}

@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "jackett.fullname" . }}
+  labels:
+    {{- include "jackett.labels" . | nindent 4 }}
+    {{- with .Values.service.labels }}
+    {{ toYaml . | nindent 4 }}
+    {{- end }}
+    {{- with .Values.service.annotations }}
+    annotations:
+{{ toYaml . | indent 6 }}
+    {{- end }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - name: http
+      port: {{ .Values.service.port }}
+      targetPort: 9117
+      protocol: TCP
+  selector:
+    app: {{ include "jackett.name" . }}
+    release: {{ .Release.Name }}
