@@ -3,47 +3,47 @@ entries:
   jackett:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2024-07-18T21:14:09.029301569+02:00"
+    created: "2024-07-18T21:15:53.089271214+02:00"
     description: A Helm chart for Kubernetes
     digest: b88584358f152fc1d6faf2369114e792198e28afbd357efcaa9ef421e7b0876f
     icon: https://bfault.github.io/plexy-charts/jackett/logo/jackett.png
     name: jackett
     type: application
     urls:
-    - git@github.com:Bfault/plexy-charts.git/jackett-0.1.0.tgz
+    - https://github.com/Bfault/plexy-charts.git/jackett-0.1.0.tgz
     version: 0.1.0
   radarr:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2024-07-18T21:14:09.029616585+02:00"
+    created: "2024-07-18T21:15:53.08960255+02:00"
     description: A Helm chart for Kubernetes
     digest: c13dff9bd08151c317a163a53aa250890a6fceb73dae7efda0ee1267aa848ca4
     icon: https://bfault.github.io/plexy-charts/radarr/logo/radarr.png
     name: radarr
     type: application
     urls:
-    - git@github.com:Bfault/plexy-charts.git/radarr-0.1.0.tgz
+    - https://github.com/Bfault/plexy-charts.git/radarr-0.1.0.tgz
     version: 0.1.0
   sonarr:
   - apiVersion: v1
     appVersion: 1.0.0
-    created: "2024-07-18T21:14:09.02991644+02:00"
+    created: "2024-07-18T21:15:53.089919152+02:00"
     description: Sonarr - Automatic downloader for TV shows
     digest: 5cc60d9bec4bca4ef06038da84be06503b0e9514282a40100917dd301c086d0e
     icon: https://bfault.github.io/plexy-charts/sonarr/logo/sonarr.png
     name: sonarr
     urls:
-    - git@github.com:Bfault/plexy-charts.git/sonarr-0.1.0.tgz
+    - https://github.com/Bfault/plexy-charts.git/sonarr-0.1.0.tgz
     version: 0.1.0
   transmission-openvpn:
   - apiVersion: v1
     appVersion: 1.0.0
-    created: "2024-07-18T21:14:09.030315668+02:00"
+    created: "2024-07-18T21:15:53.090316299+02:00"
     description: Transmission torrent client with WebUI while connecting to OpenVPN
     digest: 2a37ec36c42a076fb390d2a6091c1a1647b8394f5dbeb0ad53bffa3d927626fd
     icon: https://bfault.github.io/plexy-charts/transmission-openvpn/logo/openvpn.png
     name: transmission-openvpn
     urls:
-    - git@github.com:Bfault/plexy-charts.git/transmission-openvpn-0.1.0.tgz
+    - https://github.com/Bfault/plexy-charts.git/transmission-openvpn-0.1.0.tgz
     version: 0.1.0
-generated: "2024-07-18T21:14:09.028861473+02:00"
+generated: "2024-07-18T21:15:53.088762026+02:00"
