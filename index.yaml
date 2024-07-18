@@ -1,3 +1,49 @@
 apiVersion: v1
-entries: {}
-generated: "2024-07-18T19:30:40.683766272+02:00"
+entries:
+  jackett:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2024-07-18T19:39:30.573630392+02:00"
+    description: A Helm chart for Kubernetes
+    digest: b88584358f152fc1d6faf2369114e792198e28afbd357efcaa9ef421e7b0876f
+    icon: https://bfault.github.io/plexy-charts/jackett/logo/jackett.png
+    name: jackett
+    type: application
+    urls:
+    - git@github.com:Bfault/plexy-charts.git/jackett-0.1.0.tgz
+    version: 0.1.0
+  radarr:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2024-07-18T19:39:30.573955105+02:00"
+    description: A Helm chart for Kubernetes
+    digest: c13dff9bd08151c317a163a53aa250890a6fceb73dae7efda0ee1267aa848ca4
+    icon: https://bfault.github.io/plexy-charts/radarr/logo/radarr.png
+    name: radarr
+    type: application
+    urls:
+    - git@github.com:Bfault/plexy-charts.git/radarr-0.1.0.tgz
+    version: 0.1.0
+  sonarr:
+  - apiVersion: v1
+    appVersion: 1.0.0
+    created: "2024-07-18T19:39:30.574417024+02:00"
+    description: Sonarr - Automatic downloader for TV shows
+    digest: 5cc60d9bec4bca4ef06038da84be06503b0e9514282a40100917dd301c086d0e
+    icon: https://bfault.github.io/plexy-charts/sonarr/logo/sonarr.png
+    name: sonarr
+    urls:
+    - git@github.com:Bfault/plexy-charts.git/sonarr-0.1.0.tgz
+    version: 0.1.0
+  transmission-openvpn:
+  - apiVersion: v1
+    appVersion: "1.0"
+    created: "2024-07-18T19:39:30.575442388+02:00"
+    description: Transmission torrent client with WebUI while connecting to OpenVPN
+    digest: 90788cb1cd9c825636a929855ffff7d2949e8bf4c5922e29548a63345a417594
+    icon: https://bfault.github.io/plexy-charts/transmission-openvpn/logo/openvpn.png
+    name: transmission-openvpn
+    urls:
+    - git@github.com:Bfault/plexy-charts.git/transmission-openvpn-0.1.0.tgz
+    version: 0.1.0
+generated: "2024-07-18T19:39:30.573155016+02:00"
