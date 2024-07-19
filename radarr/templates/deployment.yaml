@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ template "radarr.fullname" . }}
-  namespace: {{ .Release.Namespace }}
+  namespace: {{ include "radarr.namespace" . }}
   labels:
     {{- include "radarr.labels" . | nindent 4 }}
     {{- with .Values.deployment.labels }}

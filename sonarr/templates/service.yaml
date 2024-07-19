@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: {{ include "sonarr.fullname" . }}
-  namespace: {{ .Release.Namespace }}
+  namespace: {{ include "sonarr.namespace" . }}
   labels:
     {{- include "sonarr.labels" . | nindent 4 }}
     {{- with .Values.service.labels }}

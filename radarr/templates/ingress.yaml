@@ -10,7 +10,7 @@ apiVersion: {{ include "radarr.ingress.apiVersion" . }}
 kind: Ingress
 metadata:
   name: {{ $fullName }}
-  namespace: {{ .Release.Namespace }}
+  namespace: {{ include "radarr.namespace" . }}
   labels:
     {{- include "radarr.labels" . | nindent 4 }}
     {{- with .Values.ingress.labels }}

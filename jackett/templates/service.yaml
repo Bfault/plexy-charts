@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: {{ include "jackett.fullname" . }}
-  namespace: {{ .Release.Namespace }}
+  namespace: {{ include "jackett.namespace" . }}
   labels:
     {{- include "jackett.labels" . | nindent 4 }}
     {{- with .Values.service.labels }}

@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ template "jackett.fullname" . }}
-  namespace: {{ .Release.Namespace }}
+  namespace: {{ include "jackett.namespace" . }}
   labels:
     {{- include "jackett.labels" . | nindent 4 }}
     {{- with .Values.deployment.labels }}

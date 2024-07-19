@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ template "sonarr.fullname" . }}
-  namespace: {{ .Release.Namespace }}
+  namespace: {{ include "sonarr.namespace" . }}
   labels:
     {{- include "sonarr.labels" . | nindent 4 }}
     {{- with .Values.deployment.labels }}

@@ -10,7 +10,7 @@ apiVersion: {{ include "sonarr.ingress.apiVersion" . }}
 kind: Ingress
 metadata:
   name: {{ $fullName }}
-  namespace: {{ .Release.Namespace }}
+  namespace: {{ include "sonarr.namespace" . }}
   labels:
     {{- include "sonarr.labels" . | nindent 4 }}
     {{- with .Values.ingress.labels }}
