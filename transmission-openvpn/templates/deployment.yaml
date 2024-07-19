@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ template "transmission-openvpn.fullname" . }}
+  namespace: {{ .Release.Namespace }}
   labels:
     {{- include "transmission-openvpn.labels" . | nindent 4 }}
     {{- with .Values.deployment.labels }}
